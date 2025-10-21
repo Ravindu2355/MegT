@@ -79,9 +79,9 @@ async def start_bot():
     # start health server
     asyncio.create_task(start_health_server())
     # start worker loop
-    asyncio.create_task(worker_loop())
-    await app.start()
+    asyncio.create_task(worker_loop()
     print("Bot started")
+    await app.run()
     # keep running
     await asyncio.Event().wait()
 
