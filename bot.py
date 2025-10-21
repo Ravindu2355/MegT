@@ -21,7 +21,7 @@ app = Client(
 job_queue = asyncio.Queue()
 
 
-async def worker_loop():
+async def worker_loop(app):
     while True:
         job = await job_queue.get()
         chat_id = job["chat_id"]
@@ -61,23 +61,17 @@ async def handle_text(client, message):
     status_msg = await message.reply_text(f"Queued: {link}")
     await job_queue.put({"chat_id": message.chat.id, "link": link, "msg": status_msg})
 
-def run_bot():
-    #loop = asyncio.new_event_loop()
-    #asyncio.set_event_loop(loop)
-    app.run()  # this now runs safely inside the new loop
+def start_q(bot):
+    def run_asyncio():
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        loop.run_until_complete(worker_loop(bot))
 
-async def start_bot():
-    # Start health server and worker in asyncio
-    start_health_server()
-    asyncio.create_task(worker_loop())
+    thread = threading.Thread(target=run_asyncio)
+    thread.daemon = True  # Set the thread as a daemon thread
+    thread.start()
 
-    # Run Pyrogram bot in a separate thread
-    bot_thread = threading.Thread(target=run_bot, daemon=True)
-    bot_thread.start()
-
-    print("✅ Bot thread started. Waiting for jobs...")
-    #await asyncio.Event().wait()  # keep main loop alive
-
-
+start_health_server()
+start_q(app)
 if __name__ == "__main__":
-    asyncio.run(start_bot())
+    bot.run()
