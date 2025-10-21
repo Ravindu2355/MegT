@@ -12,7 +12,7 @@ class HealthHandler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
 
-async def start_health_server(port=8000):
+def start_health_server(port=8000):
     def _run():
         server = HTTPServer(("0.0.0.0", port), HealthHandler)
         print("Health server listening on", port)
