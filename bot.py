@@ -62,13 +62,13 @@ async def handle_text(client, message):
     await job_queue.put({"chat_id": message.chat.id, "link": link, "msg": status_msg})
 
 def run_bot():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    #loop = asyncio.new_event_loop()
+    #asyncio.set_event_loop(loop)
     app.run()  # this now runs safely inside the new loop
 
 async def start_bot():
     # Start health server and worker in asyncio
-    asyncio.create_task(start_health_server())
+    start_health_server()
     asyncio.create_task(worker_loop())
 
     # Run Pyrogram bot in a separate thread
@@ -76,7 +76,7 @@ async def start_bot():
     bot_thread.start()
 
     print("✅ Bot thread started. Waiting for jobs...")
-    await asyncio.Event().wait()  # keep main loop alive
+    #await asyncio.Event().wait()  # keep main loop alive
 
 
 if __name__ == "__main__":
