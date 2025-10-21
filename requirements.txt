@@ -1,5 +1,5 @@
-pyrogram==2.0.39
-tgcrypto==1.4.1
-python-dotenv==1.0.0
-aiofiles==23.1.0
-python-multipart==0.0.5
+pyrogram #==2.0.39
+tgcrypto #==1.4.1
+#python-dotenv==1.0.0
+aiofiles #==23.1.0
+python-multipart #==0.0.5
