@@ -64,7 +64,7 @@ async def worker_loop():
 async def start_cmd(client, message):
     await message.reply_text("Send me a MEGA folder/file link and I'll enqueue and upload the playable videos (skip >2GB).")
 
-@Client.on_message(app, filters.text & ~filters.edited)
+@Client.on_message(app, filters.text)
 async def handle_text(client, message):
     txt = message.text or ""
     m = MEGA_LINK_RE.search(txt)
