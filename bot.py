@@ -83,7 +83,7 @@ async def start_bot():
     print("Bot started")
     await app.run()
     # keep running
-    await asyncio.Event().wait()
+    #await asyncio.Event().wait()
 
 if __name__ == "__main__":
     asyncio.run(start_bot())
