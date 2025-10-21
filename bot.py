@@ -74,4 +74,4 @@ def start_q(bot):
 start_health_server()
 start_q(app)
 if __name__ == "__main__":
-    bot.run()
+    app.run()
